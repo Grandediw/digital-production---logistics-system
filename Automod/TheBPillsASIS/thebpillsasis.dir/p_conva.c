@@ -1,0 +1,185 @@
+// P_conva.c
+// AutoMod® 14.6 Generated File
+// Build: 14.6.0.5
+// Model name:	thebpillsasis
+// Model path:	C:\Users\grandediw\Desktop\thebpillsasis.dir\
+// Generated:	Tue Jan 30 23:32:09 2024
+// Applied/AutoMod Licensee Confidential
+// NO DISTRIBUTION OR REPRODUCTION RIGHTS GRANTED!
+// Copyright © 1988-2022 Applied Materials. All rights reserved.
+//
+// All Rights Reserved.  Reproduction or transmission in whole or
+// in part, in any form or by any means, electronic, mechanical or
+// otherwise, is prohibited without the prior written consent of
+// copyright owner.
+//
+// Licensed Material - Property of Applied Materials, Inc.
+//
+// Applied Materials, Inc.
+// 3050 Bowers Drive
+// P.O. Box 58039
+// Santa Clara, CA 95054-3299
+// U.S.A.
+//
+
+
+#include "cdecls.h"
+
+
+static int32
+P_conv_arriving(load* thisObj, int32 step, void* args)
+{
+	void* am_localargs = INIT_Pointer;
+	int32 retval = Continue;
+	switch (step) { // Make the step switcher
+	case Step 1: goto Label1;
+	case Step 2: goto Label2;
+	case Step 3: goto Label3;
+	case Step 4: goto Label4;
+	case Step 5: goto Label5;
+	case Step 6: goto Label6;
+	case Step 7: goto Label7;
+	case Step 8: goto Label8;
+	case Step 9: goto Label9;
+	case Step 10: goto Label10;
+	case Step 11: goto Label11;
+	case Step 12: goto Label12;
+	case Step 13: goto Label13;
+	default: message("Bad step number %ld.", step);
+	}
+	retval = Error;
+	goto LabelRet;
+Label1: ;  // Step1
+	{
+		{
+			pushppa(thisObj, P_conv_arriving, Step 2, am_localargs);
+			load_SetDestLoc(thisObj, LocGetQualifier(am_model.am_conv.am_sta1, -9999));
+			pushppa(thisObj, move_in_loc, Step 1, NULL);
+			return Continue; // go move into territory
+Label2: ; // Step 2
+		}
+		{
+			pushppa(thisObj, P_conv_arriving, Step 3, am_localargs);
+			load_SetDestLoc(thisObj, SysGetQualifier(am_model.am_conv.$sys, "sta_B", CurProcIndex(), -9999));
+			pushppa(thisObj, travel_to_loc, Step 1, NULL);
+			return Continue; // go move to location
+Label3: ; // Step 3
+		}
+		{
+			if (waitfor(ToModelTime(10, UNITSECONDS), thisObj, P_conv_arriving, Step 4, am_localargs) == Delayed)
+				return Delayed;
+Label4: ; // Step 4
+		}
+		{
+			return usefor(&(am2_R_b_fill[ValidIndex("am_model.am_R_b_fill", CurProcIndex(), 2)]), 1, thisObj, P_conv_arriving, Step 5, am_localargs, ToModelTime(normal1(am2_stream0, (10 * thisObj->attribute->am2_V_type), 3), UNITSECONDS));
+Label5: ; // Step 5
+		}
+		{
+			pushppa(thisObj, P_conv_arriving, Step 6, am_localargs);
+			pushppa(thisObj, inqueue, Step 1, &(am2_Q_B[ValidIndex("am_model.am_Q_B", CurProcIndex(), 2)]));
+			return Continue; // go move into territory
+Label6: ; // Step 6
+		}
+		{
+			am2_V_count_pills[ValidIndex("am_model.am_V_count_pills", CurProcIndex(), 2)] += 1;
+			EntityChanged(0x01000000);
+		}
+		{
+			if (am2_V_count_pills[ValidIndex("am_model.am_V_count_pills", CurProcIndex(), 2)] < am2_V_dim_B) {
+				{
+					return waitorder(&(am2_OL_b[ValidIndex("am_model.am_OL_b", CurProcIndex(), 2)]), thisObj, P_conv_arriving, Step 7, am_localargs);
+Label7: ; // Step 7
+					if (!thisObj->inLeaveProc && thisObj->nextproc) {
+						retval = Continue;
+						goto LabelRet;
+					}
+				}
+			}
+			else {
+				{
+					order((am2_V_dim_B - 1), &(am2_OL_b[ValidIndex("am_model.am_OL_b", CurProcIndex(), 2)]), am2_die, NULL);		// Place an order
+				}
+				{
+					if (waitfor(ToModelTime(5, UNITSECONDS), thisObj, P_conv_arriving, Step 8, am_localargs) == Delayed)
+						return Delayed;
+Label8: ; // Step 8
+				}
+				{
+					am2_V_count_pills[ValidIndex("am_model.am_V_count_pills", CurProcIndex(), 2)] = 0;
+					EntityChanged(0x01000000);
+				}
+			}
+		}
+		{
+			LdSetType(thisObj, &(am2_L_rawB[ValidIndex("am_model.am_L_rawB", CurProcIndex(), 2)]));
+			EntityChanged(0x00000040);
+		}
+		{
+			return usefor(&(am2_R_b_cart[ValidIndex("am_model.am_R_b_cart", CurProcIndex(), 2)]), 1, thisObj, P_conv_arriving, Step 9, am_localargs, ToModelTime(normal1(am2_stream0, 30, 3), UNITSECONDS));
+Label9: ; // Step 9
+		}
+		{
+			pushppa(thisObj, P_conv_arriving, Step 10, am_localargs);
+			pushppa(thisObj, inqueue, Step 1, &(am2_Q_cart[ValidIndex("am_model.am_Q_cart", CurProcIndex(), 2)]));
+			return Continue; // go move into territory
+Label10: ; // Step 10
+		}
+		{
+			am2_V_count_cartoning[ValidIndex("am_model.am_V_count_cartoning", CurProcIndex(), 2)] += 1;
+			EntityChanged(0x01000000);
+		}
+		{
+			if (am2_V_count_cartoning[ValidIndex("am_model.am_V_count_cartoning", CurProcIndex(), 2)] < thisObj->attribute->am2_V_dim) {
+				{
+					return waitorder(&(am2_OL_cartoning[ValidIndex("am_model.am_OL_cartoning", CurProcIndex(), 2)]), thisObj, P_conv_arriving, Step 11, am_localargs);
+Label11: ; // Step 11
+					if (!thisObj->inLeaveProc && thisObj->nextproc) {
+						retval = Continue;
+						goto LabelRet;
+					}
+				}
+			}
+			else {
+				{
+					order((thisObj->attribute->am2_V_dim - 1), &(am2_OL_cartoning[ValidIndex("am_model.am_OL_cartoning", CurProcIndex(), 2)]), am2_die, NULL);		// Place an order
+				}
+				{
+					if (waitfor(ToModelTime(5, UNITSECONDS), thisObj, P_conv_arriving, Step 12, am_localargs) == Delayed)
+						return Delayed;
+Label12: ; // Step 12
+				}
+				{
+					am2_V_count_cartoning[ValidIndex("am_model.am_V_count_cartoning", CurProcIndex(), 2)] = 0;
+					EntityChanged(0x01000000);
+				}
+				{
+					pushppa(thisObj, P_conv_arriving, Step 13, am_localargs);
+					load_SetDestLoc(thisObj, SysGetQualifier(am_model.am_conv.$sys, "sta_C", CurProcIndex(), -9999));
+					pushppa(thisObj, move_in_loc, Step 1, NULL);
+					return Continue; // go move into territory
+Label13: ; // Step 13
+				}
+			}
+		}
+		{
+			thisObj->nextproc = &(am2_P_ship[ValidIndex("am_model.am_P_ship", thisObj->attribute->am2_V_dest, 2)]); /* send to ... */
+			EntityChanged(W_LOAD);
+			retval = Continue;
+			goto LabelRet;
+		}
+	}
+LabelRet: ;
+	if (am_localargs)
+		xfree(am_localargs);
+	return retval;
+} // end of P_conv_arriving
+
+
+
+/* init function for P_conva.m */
+void
+model_P_conva_init(struct model_struct* data)
+{
+	data->am_P_conv->aprc = P_conv_arriving;
+}
+
