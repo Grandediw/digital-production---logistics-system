@@ -49,7 +49,7 @@ To use the Python files in this repository, ensure you have the following instal
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/digital-production-logistics-system.git
+   git clone https://github.com/Grandediw/digital-production-logistics-system.git
    cd digital-production-logistics-system
    ```
 
